@@ -1,71 +1,58 @@
-import logoinsight from "../../images/logoinsight.png";
-import imghome from "../../images/imghome.png";
-import imgqlv from "../../images/imgqlv.png";
-import imgcd from "../../images/imgcd.png";
-import { Link, NavLink } from "react-router-dom";
-const Menubar = () => {
-  return (
-    <>
-      <section className="menubar" id="menubar">
-        <div className="menubar-main">
-          <img src={logoinsight} alt="" className="imgmenubar" />
-          <NavLink
-            className={({ isActive }) =>
-              isActive ? "menubar-main-box active" : "menubar-main-box"
-            }
-            to="/"
-          >
-            <img src={imghome} alt="" className="icondashboard" />
-            Trang chủ
-          </NavLink>
+import React from 'react'
+import { BiHomeAlt } from 'react-icons/bi';
+import { TbTicket, TbSettings } from 'react-icons/tb'
+import { RiFileList3Line } from 'react-icons/ri'
+import { MdCopyright } from 'react-icons/md'
+import logo from '../../images/logo.svg'
+type idbtn = {
+    buttonid: string
+}
+export const Menubar = (id: idbtn) => {
+    var idbtn: string = id.buttonid;
+    const changebutton = (id: string) => {
+        const btn: any = document.getElementById(id);
+        btn.classList.toggle("button-active");
+        if (id === 'cd') {
+            const gdv: any = document.getElementById('gdv')
+            const btngdv: any = document.getElementById('btngdv')
+            gdv.style.fontWeight = '700'
+            btngdv.style.pointerEvents = 'none'
+        }
+    }
+    return (
+        <div className='menubar' onLoad={() => changebutton(idbtn)}>
+            <img src={logo} alt="logo" className='menubar-img' />
+            <div className="menubar-optionbox">
+                <div className="menubar-btnoption" id='tc'>
+                    <a href="/" >
+                        <p className="menubar-btnoption-icon"><BiHomeAlt /></p>
+                        <p className="menubar-btnoption-p">Trang chủ</p>
+                    </a>
+                </div>
+                <div className="menubar-btnoption" id='qlv'>
+                    <a href="/manager-ticket" className='notline'>
+                        <p className="menubar-btnoption-icon"><TbTicket /></p>
+                        <p className="menubar-btnoption-p">Quản lý vé</p>
+                    </a>
+                </div>
+                <div className="menubar-btnoption" id='dsv'>
+                    <a href="/change-ticket" className='notline'>
+                        <p className="menubar-btnoption-icon"><RiFileList3Line /></p>
+                        <p className="menubar-btnoption-p">Đối soát vé</p>
+                    </a>
+                </div>
 
-          <NavLink
-            className={({ isActive }) =>
-              isActive ? "menubar-main-box active" : "menubar-main-box"
-            }
-            to="/manage-ticket"
-          >
-            <img src={imgqlv} alt="" className="icondevice" />
-            Quản lý vé
-          </NavLink>
-
-          <NavLink
-            className={({ isActive }) =>
-              isActive ? "menubar-main-box active" : "menubar-main-box"
-            }
-            to="/change-ticket"
-          >
-            <img src={imgqlv} alt="" className="icondevice" />
-            Đổi soát vé
-          </NavLink>
-
-          <NavLink
-            className={({ isActive }) =>
-              isActive
-                ? "menubar-main-box active setting"
-                : "menubar-main-box setting"
-            }
-            to="/setting"
-          >
-            <img src={imgcd} alt="" className="iconsetting" />
-            Cài đặt
-            <div className="navigation">
-              <ul>
-                <li>
-                  <NavLink
-                    className={({ isActive }) => (isActive ? "active " : "")}
-                    to="/setting"
-                  >
-                    Gói dịch vụ
-                  </NavLink>
-                </li>
-              </ul>
+                <div className="menubar-btnoption-setting" id='cd'>
+                    <p className="menubar-btnoption-icon"><TbSettings /></p>
+                    <p className="menubar-btnoption-p">Cài đặt</p>
+                </div>
+                <a href="/setting" className='notline' id='btngdv'><div className="menubar-btn-setting" ><p id='gdv'> Gói dịch vụ</p></div></a>
             </div>
-          </NavLink>
+            <div className="menubar-copyright ">
+                <p>Copyright</p>
+                <p><MdCopyright /></p>
+                <p>2020 Alta Software</p>
+            </div>
         </div>
-      </section>
-    </>
-  );
-};
-
-export default Menubar;
+    )
+}
